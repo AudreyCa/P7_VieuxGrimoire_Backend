@@ -35,6 +35,10 @@ const bookSchema = mongoose.Schema({
         type: Number, 
         required: true
     }
+},
+{
+    collection: 'book',
+    versionKey: false
 });
 
-module.exports = mongoose.model('Book', bookSchema);
+module.exports = mongoose.model('book', bookSchema);

@@ -1,10 +1,10 @@
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
+const jwt = require('jsonwebtoken');
 
 
-// POST : créeation d'un user
+// POST : création d'un user (signup)
 exports.createUser = (req, res) => {
-    console.log(req.body);
     bcrypt.hash(req.body.password, 10)
         .then(hash => {
             const user = new User({
@@ -27,9 +27,8 @@ exports.createUser = (req, res) => {
         });
 }
 
-// POST : Login (Renvoie un userId et un token)
+// POST : Login
 exports.authentificateUser = (req, res, next) => {
-    console.log(req.body);
     User.findOne({ email: req.body.email })
     .then(user => {
         if (!user) {
@@ -42,7 +41,11 @@ exports.authentificateUser = (req, res, next) => {
                 }
                 res.status(200).json({
                     userId: user._id,
-                    token: 'TOKEN'
+                    token: jwt.sign(
+                        { userId: user._id },
+                        process.env.TOKEN_SECRET,
+                        { expiresIn: '24h' }
+                    )
                 });
             })
             .catch(error => res.status(500).json({ error }));

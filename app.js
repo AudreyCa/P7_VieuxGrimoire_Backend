@@ -1,4 +1,5 @@
-const express = require('express')
+const express = require('express');
+const path = require('path');
 require("dotenv").config();
 
 const app = express();
@@ -25,6 +26,8 @@ app.use((req, res, next) => {
 // Nos routes
 app.use('/api/auth', authRouter);
 app.use('/api/books', booksRouter);
+// Pour gérer les fichiers vers le répertoire image (renvoi des fichiers statiques pour une route donnée)
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 
 module.exports = app;

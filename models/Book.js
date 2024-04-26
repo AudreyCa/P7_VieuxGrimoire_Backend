@@ -2,28 +2,23 @@ const mongoose = require('mongoose');
 
 const bookSchema = mongoose.Schema({
     userId: { 
-        type: String, 
-        required: true 
+        type: String
     },
     title: { 
         type: String, 
         required: true 
     },
     author: { 
-        type: String, 
-        required: true 
+        type: String
     },
     imageUrl : { 
-        type: String, 
-        required: true 
+        type: String
     },
     year: { 
-        type: Number, 
-        required: true
+        type: Number
     },
     genre: { 
-        type: String, 
-        required: true
+        type: String
     },
     ratings : [
         { 
@@ -32,8 +27,7 @@ const bookSchema = mongoose.Schema({
         }
     ],
     averageRating : { 
-        type: Number, 
-        required: true
+        type: Number
     }
 },
 {

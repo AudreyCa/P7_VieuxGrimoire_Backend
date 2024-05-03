@@ -50,7 +50,19 @@ exports.postRating = (req, res, next) => {
     Book.findOne({ _id: bookId})
         // On ajoute la note mais on vérifie que l'utilisateur ne l'a pas déjà noté
         .then(book => {
-            if(book.ratings.userId == userId){
+            //! Changement, nouvelle consigne du mentor : Si l'utilisateur a déjà noté le livre, lui laisser la possibilité de modifier sa note. En front, j'ai ajouté un bouton "modifier ma note"
+            const ratingObject = book.ratings.find(rating => rating.userId.toString() === userId); // On cherche si l'utilisateur à déjà noté le livre
+
+            if (ratingObject) { // Si l'utilisateur et sa note a été trouvé, on l'update
+                ratingObject.grade = rating;
+                return book.save();
+            } else { // Sinon on ajoute simplement la note
+                book.ratings.push({ userId: userId, grade: rating });
+                return book.save();
+            }
+            
+            // Ancien code avant la demande de mon mentor
+            /* if(book.ratings.userId == userId){ 
                 return res.status(400).json({ message: 'Vous avez déjà noté ce livre.' });
             } else{
                 return Book.findByIdAndUpdate( // Ajoute la note
@@ -63,7 +75,7 @@ exports.postRating = (req, res, next) => {
                         }},
                     { new: true } // Book a jour
                 );
-            }
+            } */
         })
         // Puis, on calcule la moyenne
         .then(updatedBookwithRating => { // Mise à jour de la note moyenne du livre

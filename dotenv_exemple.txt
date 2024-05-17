@@ -1,0 +1,6 @@
+Port=xxxx
+
+MONGODB_URI=mongodb+srv://xxxxxxxxxxxx:xxxxxxxxxxxxxxxxxx@bddvieuxgrimoires.0ljcom1.mongodb.net/vieux_grimoires?retryWrites=true&w=majority&appName=BDDVieuxGrimoires
+
+
+TOKEN_SECRET=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx

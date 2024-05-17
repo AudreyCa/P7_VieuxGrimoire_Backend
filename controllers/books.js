@@ -100,7 +100,7 @@ exports.modifyBook = (req, res, next) => {
     // On vérifie si la modification du livre se fait avec ou sans image (gestion différentes du fichier reçu : parse ou pas)
     const booksObject = req.file ?  
         { ...JSON.parse(req.body.book),
-        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.buffer}`
         } : 
         { ...req.body }; // on récupère l'object dans le corps de la requete
 
